@@ -31,6 +31,8 @@ class Pedido(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     fecha = models.DateTimeField(auto_now_add=True)
     vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE)
+    estado = models.CharField(max_length=20, choices=[('Pendiente', 'Pendiente'), ('Completado', 'Completado'), ('Cancelado', 'Cancelado')])
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     productos = models.ManyToManyField(Producto, through='PedidoProducto')
     
     def __str__(self):

@@ -3,9 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ca</title>
+    <title>Capricci del Mondo</title>
 </head>
 <body>
-    
+    <h1>Detalle de la Compra</h1>
+    <h2>ID de la Compra: {{ compra.id }}</h2>
+    <h2>Proveedor: {{ compra.proveedor.nombre }}</h2>
+    <p>Fecha: {{ compra.fecha }}</p>
+    <p>Productos:</p>
+    <ul>
+        {% for producto in compra.productos.all %}
+            <li>{{ producto.nombre }} - Cantidad: {{ producto.cantidad }}</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>

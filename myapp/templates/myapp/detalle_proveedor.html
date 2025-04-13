@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capricci del Mondo</title>
+</head>
+<body>
+    <h1>Detalle del Proveedor</h1>
+    <h2>Nombre: {{ proveedor.nombre }}</h2>
+    <h2>Contacto: {{ proveedor.contacto }}</h2>
+    <p>Teléfono: {{ proveedor.telefono }}</p>
+    <p>Email: {{ proveedor.email }}</p>
+    <p>Productos suministrados:</p>
+    <ul>
+        {% for producto in proveedor.productos.all %}
+            <li>{{ producto.nombre }} - {{ producto.categoria }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
