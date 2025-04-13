@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capricci del Mondo - Inicio</title>
+    <title>Capricci del Mondo - Vendedores</title>
     <style>
         /* Estilo general */
         body {
@@ -25,13 +25,13 @@
         }
 
         header h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin: 0;
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3); /* Sombra para destacar el texto */
         }
 
         header p {
-            font-size: 1.2rem;
+            font-size: 1rem;
             margin: 0.5rem 0 0;
         }
 
@@ -43,18 +43,39 @@
             background-color: #fff; /* Fondo blanco */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            text-align: center;
         }
 
         .container h2 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             margin-bottom: 1rem;
             color: #495057; /* Gris intermedio */
         }
 
-        .container p {
-            font-size: 1rem;
-            color: #666;
+        /* Tabla */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border: 1px solid #dee2e6; /* Gris claro */
+        }
+
+        th {
+            background-color: #6c757d; /* Gris oscuro */
+            color: #fff; /* Texto blanco */
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa; /* Fondo alterno */
+        }
+
+        tr:hover {
+            background-color: #e9ecef; /* Fondo al pasar el mouse */
         }
 
         /* Pie de página */
@@ -76,11 +97,31 @@
 <body>
     <header>
         <h1>Capricci del Mondo</h1>
-        <p>Bienvenidos a nuestra tienda</p>
+        <p>Gestión de Vendedores</p>
     </header>
     <div class="container">
-        <h2>¡Explora nuestros productos y servicios!</h2>
-        <p>{{ mensaje }}</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Correo Electrónico</th>
+                    <th>Teléfono</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vendedor in vendedores %}
+                <tr>
+                    <td>{{ vendedor.id }}</td>
+                    <td>{{ vendedor.nombre }}</td>
+                    <td>{{ vendedor.apellido }}</td>
+                    <td>{{ vendedor.correo_electronico }}</td>
+                    <td>{{ vendedor.telefono }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
     <footer>
         <p>&copy; 2025 Capricci del Mondo. Todos los derechos reservados.</p>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capricci del Mondo!</title>
+</head>
+<body>
+    <h1>Detalle del Cliente</h1>
+    <h2>Nombre: {{ cliente.nombre }}</h2>
+    <h2>Apellido: {{ cliente.apellido }}</h2>
+    <p>Teléfono: {{ cliente.telefono }}</p>
+    <p>Email: {{ cliente.email }}</p>
+    <p>Compras:</p>
+    <ul>
+        {% for compra in cliente.compras.all %}
+            <li><a href="{% url 'compras_detail' compra.id %}">{{ compra.fecha }}</a></li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
