@@ -106,18 +106,24 @@
                     <th>ID</th>
                     <th>Fecha</th>
                     <th>Proveedor</th>
-                    <th>Producto</th>
+                    <th>Productos</th>
                     <th>Total</th>
                 </tr>
             </thead>
             <tbody>
-                {% for compra in compras %}
+                {% for compra_data in compras_data %}
                 <tr>
-                    <td>{{ compra.id }}</td>
-                    <td>{{ compra.fecha }}</td>
-                    <td>{{ compra.proveedor.nombre }}</td>
-                    <td>{{ compra.producto.nombre }}</td>
-                    <td>{{ compra.total }}</td>
+                    <td>{{ compra_data.compra.id }}</td>
+                    <td>{{ compra_data.compra.fecha }}</td>
+                    <td>{{ compra_data.compra.proveedor.nombre }}</td>
+                    <td>
+                        <ul>
+                            {% for producto in compra_data.productos %}
+                            <li>{{ producto.producto.nombre }} - Cantidad: {{ producto.cantidad }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>{{ compra_data.total }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

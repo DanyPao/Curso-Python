@@ -23,7 +23,16 @@ def productos(request):
 
 def pedidos(request):
     pedidos = Pedido.objects.all()
-    context = {"pedidos": pedidos}
+    pedidos_data = []
+    for pedido in pedidos:
+        productos = pedido.pedidoproducto_set.all()
+        total = pedido.calcular_total()
+        pedidos_data.append({
+            "pedido": pedido,
+            "productos": productos,
+            "total": total,
+        })
+    context = {"pedidos_data": pedidos_data}
     return render(request, "myapp/pedidos.html", context)
 
 def proveedores(request):
@@ -33,7 +42,16 @@ def proveedores(request):
 
 def compras(request):
     compras = Compra.objects.all()
-    context = {"compras": compras}
+    compras_data = []
+    for compra in compras:
+        productos = compra.compraproducto_set.all()
+        total = compra.calcular_total()
+        compras_data.append({
+            "compra": compra,
+            "productos": productos,
+            "total": total,
+        })
+    context = {"compras_data": compras_data}
     return render(request, "myapp/compras.html", context)
 
 def detalle_cliente(request, cliente_id):

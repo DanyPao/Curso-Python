@@ -14,7 +14,7 @@
     <p>Productos suministrados:</p>
     <ul>
         {% for producto in proveedor.productos.all %}
-            <li>{{ producto.nombre }} - {{ producto.categoria }}</li>
+            <li>{{ producto.nombre }} {{ producto.cantidad}}</li>
         {% endfor %}
     </ul>
 </body>

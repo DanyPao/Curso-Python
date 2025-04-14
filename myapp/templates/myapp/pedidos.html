@@ -1,3 +1,4 @@
+<!-- filepath: c:\Trabajos_en_Python\Coder\Trabajo_practico\Curso-Python\myapp\templates\myapp\pedidos.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -107,21 +108,27 @@
                     <th>Cliente</th>
                     <th>Fecha</th>
                     <th>Vendedor</th>
-                    <th>Producto</th>
+                    <th>Productos</th>
                     <th>Total</th>
                     <th>Estado</th>
                 </tr>
             </thead>
             <tbody>
-                {% for pedido in pedidos %}
+                {% for pedido_data in pedidos_data %}
                 <tr>
-                    <td>{{ pedido.id }}</td>
-                    <td>{{ pedido.cliente.nombre }} {{ pedido.cliente.apellido }}</td>
-                    <td>{{ pedido.fecha }}</td>
-                    <td>{{ pedido.vendedor.nombre }} {{ pedido.vendedor.apellido }}</td>
-                    <td>{{ pedido.producto.nombre }}</td>
-                    <td>{{ pedido.total }}</td>
-                    <td>{{ pedido.estado }}</td>
+                    <td>{{ pedido_data.pedido.id }}</td>
+                    <td>{{ pedido_data.pedido.cliente.nombre }} {{ pedido_data.pedido.cliente.apellido }}</td>
+                    <td>{{ pedido_data.pedido.fecha }}</td>
+                    <td>{{ pedido_data.pedido.vendedor.nombre }} {{ pedido_data.pedido.vendedor.apellido }}</td>
+                    <td>
+                        <ul>
+                            {% for producto in pedido_data.productos %}
+                            <li>{{ producto.producto.nombre }} - Cantidad: {{ producto.cantidad }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>{{ pedido_data.total }}</td>
+                    <td>{{ pedido_data.pedido.estado }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
