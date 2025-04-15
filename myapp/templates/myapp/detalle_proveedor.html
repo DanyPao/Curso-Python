@@ -1,21 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capricci del Mondo</title>
-</head>
-<body>
-    <h1>Detalle del Proveedor</h1>
-    <h2>Nombre: {{ proveedor.nombre }}</h2>
-    <h2>Contacto: {{ proveedor.contacto }}</h2>
-    <p>Teléfono: {{ proveedor.telefono }}</p>
-    <p>Email: {{ proveedor.email }}</p>
-    <p>Productos suministrados:</p>
+{% extends 'myapp/base.html' %}
+
+{% block contenido %}
+
+<div class="container">
+    <h2>Información del Proveedor</h2>
+    <p><strong>Nombre:</strong> {{ proveedor.nombre }}</p>
+    <p><strong>Contacto:</strong> {{ proveedor.contacto }}</p>
+    <p><strong>Teléfono:</strong> {{ proveedor.telefono }}</p>
+    <p><strong>Email:</strong> {{ proveedor.email }}</p>
+    <h3>Productos Suministrados:</h3>
     <ul>
         {% for producto in proveedor.productos.all %}
-            <li>{{ producto.nombre }} {{ producto.cantidad}}</li>
+            <li>{{ producto.nombre }} - Cantidad: {{ producto.cantidad }}</li>
         {% endfor %}
     </ul>
-</body>
-</html>
+</div>
+
+{% endblock %}

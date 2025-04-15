@@ -1,141 +1,40 @@
-<!-- filepath: c:\Trabajos_en_Python\Coder\Trabajo_practico\Curso-Python\myapp\templates\myapp\pedidos.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capricci del Mondo - Pedidos</title>
-    <style>
-        /* Estilo general */
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4e3d7; /* Fondo camel pastel */
-            color: #333; /* Texto gris oscuro */
-            line-height: 1.6;
-        }
+{% extends 'myapp/base.html' %}
 
-        /* Encabezado */
-        header {
-            background: linear-gradient(135deg, #4facfe, #38ef7d); /* Degradado azul y verde */
-            color: #fff;
-            padding: 1.5rem 0;
-            text-align: center;
-            border-bottom: 4px solid #3bb78f; /* Detalle más oscuro */
-        }
+{% block contenido %}
 
-        header h1 {
-            font-size: 2rem;
-            margin: 0;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3); /* Sombra para destacar el texto */
-        }
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Fecha</th>
+                <th>Vendedor</th>
+                <th>Productos</th>
+                <th>Total</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pedido_data in pedidos_data %}
+            <tr>
+                <td>{{ pedido_data.pedido.id }}</td>
+                <td>{{ pedido_data.pedido.cliente.nombre }} {{ pedido_data.pedido.cliente.apellido }}</td>
+                <td>{{ pedido_data.pedido.fecha }}</td>
+                <td>{{ pedido_data.pedido.vendedor.nombre }} {{ pedido_data.pedido.vendedor.apellido }}</td>
+                <td>
+                    <ul>
+                        {% for producto in pedido_data.productos %}
+                        <li>{{ producto.producto.nombre }} - Cantidad: {{ producto.cantidad }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>{{ pedido_data.total }}</td>
+                <td>{{ pedido_data.pedido.estado }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
-        header p {
-            font-size: 1rem;
-            margin: 0.5rem 0 0;
-        }
-
-        /* Contenedor principal */
-        .container {
-            max-width: 1100px;
-            margin: 2rem auto;
-            padding: 1.5rem;
-            background-color: #fff; /* Fondo blanco */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-
-        .container h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #495057; /* Gris intermedio */
-        }
-
-        /* Tabla */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-
-        th, td {
-            padding: 1rem;
-            text-align: left;
-            border: 1px solid #dee2e6; /* Gris claro */
-        }
-
-        th {
-            background-color: #6c757d; /* Gris oscuro */
-            color: #fff; /* Texto blanco */
-            font-weight: bold;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f8f9fa; /* Fondo alterno */
-        }
-
-        tr:hover {
-            background-color: #e9ecef; /* Fondo al pasar el mouse */
-        }
-
-        /* Pie de página */
-        footer {
-            text-align: center;
-            margin-top: 2rem;
-            padding: 1rem 0;
-            background-color: #6c757d; /* Gris oscuro */
-            color: #fff;
-            border-top: 4px solid #5a6268; /* Detalle más oscuro */
-        }
-
-        footer p {
-            margin: 0;
-            font-size: 0.9rem;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Capricci del Mondo</h1>
-        <p>Gestión de Pedidos</p>
-    </header>
-    <div class="container">
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Cliente</th>
-                    <th>Fecha</th>
-                    <th>Vendedor</th>
-                    <th>Productos</th>
-                    <th>Total</th>
-                    <th>Estado</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for pedido_data in pedidos_data %}
-                <tr>
-                    <td>{{ pedido_data.pedido.id }}</td>
-                    <td>{{ pedido_data.pedido.cliente.nombre }} {{ pedido_data.pedido.cliente.apellido }}</td>
-                    <td>{{ pedido_data.pedido.fecha }}</td>
-                    <td>{{ pedido_data.pedido.vendedor.nombre }} {{ pedido_data.pedido.vendedor.apellido }}</td>
-                    <td>
-                        <ul>
-                            {% for producto in pedido_data.productos %}
-                            <li>{{ producto.producto.nombre }} - Cantidad: {{ producto.cantidad }}</li>
-                            {% endfor %}
-                        </ul>
-                    </td>
-                    <td>{{ pedido_data.total }}</td>
-                    <td>{{ pedido_data.pedido.estado }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <footer>
-        <p>&copy; 2025 Capricci del Mondo. Todos los derechos reservados.</p>
-    </footer>
-</body>
-</html>
+{% endblock %}

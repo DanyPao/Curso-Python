@@ -1,21 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capricci del Mondo</title>
-</head>
-<body>
-    <h1>Detalle del Vendedor</h1>
-    <h2>Nombre: {{ vendedor.nombre }}</h2>
-    <h2>Apellido: {{ vendedor.apellido }}</h2>
-    <p>Teléfono: {{ vendedor.telefono }}</p>
-    <p>Email: {{ vendedor.email }}</p>
-    <p>Pedidos gestionados:</p>
+{% extends 'myapp/base.html' %}
+
+{% block contenido %}
+
+<div class="container">
+    <h2>Información del Vendedor</h2>
+    <p><strong>Nombre:</strong> {{ vendedor.nombre }}</p>
+    <p><strong>Apellido:</strong> {{ vendedor.apellido }}</p>
+    <p><strong>Teléfono:</strong> {{ vendedor.telefono }}</p>
+    <p><strong>Email:</strong> {{ vendedor.email }}</p>
+    <h3>Pedidos Gestionados:</h3>
     <ul>
         {% for pedido in vendedor.pedidos.all %}
-            <li><a href="{% url 'pedidos_detail' pedido.id %}">{{ pedido.fecha }}</a></li>
+            <li><a href="{% url 'detalle_pedido' pedido.id %}">{{ pedido.fecha }}</a></li>
         {% endfor %}
     </ul>
-</body>
-</html>
+</div>
+
+{% endblock %}

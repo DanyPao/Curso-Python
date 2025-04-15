@@ -1,20 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capricci del Mondo</title>
-</head>
-<body>
-    <h1>Detalle de la Compra</h1>
-    <h2>ID de la Compra: {{ compra.id }}</h2>
-    <h2>Proveedor: {{ compra.proveedor.nombre }}</h2>
-    <p>Fecha: {{ compra.fecha }}</p>
-    <p>Productos:</p>
+{% extends 'myapp/base.html' %}
+
+{% block contenido %}
+
+<div class="container">
+    <h2>Información de la Compra</h2>
+    <p><strong>ID de la Compra:</strong> {{ compra.id }}</p>
+    <p><strong>Proveedor:</strong> {{ compra.proveedor.nombre }}</p>
+    <p><strong>Fecha:</strong> {{ compra.fecha }}</p>
+    <h3>Productos:</h3>
     <ul>
         {% for producto in compra.productos.all %}
             <li>{{ producto.nombre }} - Cantidad: {{ producto.cantidad }}</li>
         {% endfor %}
     </ul>
-</body>
-</html>
+</div>
+
+{% endblock %}

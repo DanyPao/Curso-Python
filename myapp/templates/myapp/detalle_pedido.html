@@ -1,23 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capricci del Mondo</title>
-</head>
-<body>
-    <h1>Detalle del Pedido</h1>
-    <h2>ID del Pedido: {{ pedido.id }}</h2>
-    <h2>Cliente: {{ pedido.cliente.nombre }} {{ pedido.cliente.apellido }}</h2>
-    <p>Fecha: {{ pedido.fecha }}</p>
-    <p>Estado: {{ pedido.estado }}</p>
-    <p>Vendedor: {{ pedido.vendedor.nombre }} {{ pedido.vendedor.apellido }}</p>
-    <p>Productos:</p>
+{% extends 'myapp/base.html' %}
+
+{% block contenido %}
+
+<div class="container">
+    <h2>Información del Pedido</h2>
+    <p><strong>ID del Pedido:</strong> {{ pedido.id }}</p>
+    <p><strong>Cliente:</strong> {{ pedido.cliente.nombre }} {{ pedido.cliente.apellido }}</p>
+    <p><strong>Fecha:</strong> {{ pedido.fecha }}</p>
+    <p><strong>Estado:</strong> {{ pedido.estado }}</p>
+    <p><strong>Vendedor:</strong> {{ pedido.vendedor.nombre }} {{ pedido.vendedor.apellido }}</p>
+    <h3>Productos:</h3>
     <ul>
         {% for producto in pedido.productos.all %}
             <li>{{ producto.nombre }} - Cantidad: {{ producto.cantidad }}</li>
         {% endfor %}
     </ul>
-    <p>Total: {{ pedido.total }}</p>
-</body>
-</html>
+    <p><strong>Total:</strong> {{ pedido.total }}</p>
+</div>
+
+{% endblock %}
