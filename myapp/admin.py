@@ -14,3 +14,4 @@ admin.site.register(Pago)
 admin.site.register(Devolucion)
 admin.site.register(Inventario)
 
+

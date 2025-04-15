@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Cliente, Vendedor, Producto, Pedido, PedidoProducto, Proveedor, Compra, CompraProducto
+from myapp.forms import FormCliente, FormVendedor, FormProducto, FormPedido, FormProveedor, FormCompra
 
-# Create your views here.
+
 def index(request):
     context = {"mensaje": "Las mejores marcas traídas de todo el mundo"}
     return render(request, "myapp/index.html", context)
@@ -54,6 +55,84 @@ def compras(request):
     context = {"compras_data": compras_data}
     return render(request, "myapp/compras.html", context)
 
+def crear_cliente(request):
+    if request.method == "POST":
+        form = FormCliente(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("clientes")
+    else:
+        form = FormCliente()
+    context = {"form": form}
+    return render(request, "myapp/crear_cliente.html", context)
+
+def crear_vendedor(request):
+    if request.method == "POST":
+        form = FormVendedor(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("vendedores")
+    else:
+        form = FormVendedor()
+    context = {"form": form}
+    return render(request, "myapp/crear_vendedor.html", context)
+
+def crear_producto(request):
+    if request.method == "POST":
+        form = FormProducto(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("productos")
+    else:
+        form = FormProducto()
+    context = {"form": form}
+    return render(request, "myapp/crear_producto.html", context)
+
+def crear_pedido(request):
+    if request.method == "POST":
+        form = FormPedido(request.POST)
+        if form.is_valid():
+            pedido = form.save(commit=False)  
+            pedido.total = 0  
+            pedido.save()  
+
+            total = 0
+            for pedido_producto in pedido.pedidoproducto_set.all():
+                total += pedido_producto.producto.precio * pedido_producto.cantidad
+            pedido.total = total
+            pedido.save()  
+
+            return redirect("pedidos")  
+    else:
+        form = FormPedido()
+
+    context = {"form": form}
+    return render(request, "myapp/crear_pedido.html", context)
+
+def crear_proveedor(request):
+    if request.method == "POST":
+        form = FormProveedor(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("proveedores")
+    else:
+        form = FormProveedor()
+    context = {"form": form}
+    return render(request, "myapp/crear_proveedor.html", context)
+
+def crear_compra(request):
+    if request.method == "POST":
+        form = FormCompra(request.POST)
+        if form.is_valid():
+            compra = form.save(commit=False)  
+            compra.save()
+            form.save_m2m() 
+            return redirect("compras")  
+    else:
+        form = FormCompra()
+    context = {"form": form}
+    return render(request, "myapp/crear_compra.html", context)
+
 def detalle_cliente(request, cliente_id):
     cliente = get_object_or_404(Cliente, id=cliente_id)
     context = {"cliente": cliente}
@@ -84,3 +163,7 @@ def detalle_compra(request, compra_id):
     context = {"compra": compra}
     return render(request, "myapp/detalle_compra.html", context)
 
+def buscar(request):
+    query = request.GET.get('q', '')
+    resultados = Producto.objects.filter(nombre__icontains=query) 
+    return render(request, 'myapp/resultados_busqueda.html', {'resultados': resultados, 'query': query})

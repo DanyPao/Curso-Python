@@ -18,6 +18,7 @@ class Vendedor(models.Model):
 
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
+    
 class Producto(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
@@ -30,11 +31,10 @@ class Producto(models.Model):
     
 class Pedido(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    fecha = models.DateTimeField(auto_now_add=True)
     vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE)
-    estado = models.CharField(max_length=20, default='Pendiente', choices=[('Pendiente', 'Pendiente'), ('Completado', 'Completado'), ('Cancelado', 'Cancelado')])
-    total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    productos = models.ManyToManyField(Producto, through='PedidoProducto')
+    estado = models.CharField(max_length=20, choices=[('Pendiente', 'Pendiente'), ('Completado', 'Completado')])
+    fecha = models.DateTimeField(auto_now_add=True)
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0)  
 
     def calcular_total(self):
         total = 0
@@ -43,11 +43,11 @@ class Pedido(models.Model):
         return total
 
     def __str__(self):
-        return f"Pedido {self.id} - {self.cliente.nombre} {self.cliente.apellido}"
+        return f"Pedido {self.id} - {self.cliente.nombre}"
     
 class PedidoProducto(models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True, blank=True)
     cantidad = models.IntegerField()
     
     def __str__(self):
@@ -64,27 +64,27 @@ class Proveedor(models.Model):
 
 class Compra(models.Model):
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, default=0, null=True, blank=True) 
+    cantidad = models.IntegerField()
+    precio = models.DecimalField(max_digits=10, decimal_places=2)
     fecha = models.DateTimeField(auto_now_add=True)
-    productos = models.ManyToManyField(Producto, through='CompraProducto')
+    estado = models.CharField(max_length=20, choices=[('Pendiente', 'Pendiente'), ('Completada', 'Completada')])
 
     def calcular_total(self):
-        total = 0
-        for compra_producto in self.compraproducto_set.all():
-            total += compra_producto.producto.precio * compra_producto.cantidad
-        return total
+        return self.cantidad * self.precio
 
     def __str__(self):
         return f"Compra {self.id} - {self.proveedor.nombre}"
   
 class CompraProducto(models.Model):
     compra = models.ForeignKey(Compra, on_delete=models.CASCADE)
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True, blank=True)
     cantidad = models.IntegerField()
 
     def __str__(self):
         return f"{self.cantidad} x {self.producto.nombre} en {self.compra}"
 class Factura(models.Model):
-    pedido = models.OneToOneField(Pedido, on_delete=models.CASCADE)
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     fecha_emision = models.DateTimeField(auto_now_add=True)
     total = models.DecimalField(max_digits=10, decimal_places=2)
 

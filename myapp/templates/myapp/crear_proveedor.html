@@ -1,0 +1,19 @@
+
+{% extends 'myapp/base.html' %}
+
+{% block contenido %}
+
+<div class="container">
+    <h2>Crear Proveedor</h2>
+    <form method="POST" action="{% url 'crear_proveedor' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Crear Proveedor</button>
+    </form>
+
+    {% if mensaje %}
+        <p>{{ mensaje }}</p>
+    {% endif %}
+</div>
+
+{% endblock %}
