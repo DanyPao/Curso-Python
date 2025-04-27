@@ -1,0 +1,25 @@
+{% extends 'interno/base.html' %}
+
+{% block contenido %}
+
+<div class="container">
+    <h2>Crear Compra</h2>
+    <form method="POST" action="{% url 'crear_compra' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+    
+        <h3>Productos</h3>
+        {{ formset.management_form }}
+        {% for form in formset %}
+            {{ form.as_p }}
+        {% endfor %}
+    
+        <button type="submit">Crear Compra</button>
+    </form>
+
+    {% if mensaje %}
+        <p>{{ mensaje }}</p>
+    {% endif %}
+</div>
+
+{% endblock %}

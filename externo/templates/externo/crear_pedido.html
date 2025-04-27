@@ -1,0 +1,26 @@
+<!-- filepath: c:\Trabajos_en_Python\Coder\Trabajo_practico\Curso-Python\externo\templates\externo\crear_pedido.html -->
+{% extends 'externo/base.html' %}
+
+{% block contenido %}
+
+<div class="container">
+    <h2>Crear Pedido</h2>
+    <form method="POST" action="{% url 'crear_pedido' %}">
+        {% csrf_token %}
+        {{ form_pedido.as_p }}
+
+        <h3>Productos</h3>
+        {{ formset.management_form }}
+        {% for form in formset %}
+            {{ form.as_p }}
+        {% endfor %}
+
+        <button type="submit">Crear Pedido</button>
+    </form>
+
+    {% if mensaje %}
+        <p>{{ mensaje }}</p>
+    {% endif %}
+</div>
+
+{% endblock %}

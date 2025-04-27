@@ -1,0 +1,19 @@
+{% extends 'externo/base.html' %}
+
+{% block contenido %}
+
+<div class="container">
+    <h2>Información del Cliente</h2>
+    <p><strong>Nombre:</strong> {{ cliente.nombre }}</p>
+    <p><strong>Apellido:</strong> {{ cliente.apellido }}</p>
+    <p><strong>Teléfono:</strong> {{ cliente.telefono }}</p>
+    <p><strong>Email:</strong> {{ cliente.email }}</p>
+    <h3>Compras:</h3>
+    <ul>
+        {% for compra in cliente.compras.all %}
+            <li><a href="{% url 'detalle_compra' compra.id %}">{{ compra.fecha }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

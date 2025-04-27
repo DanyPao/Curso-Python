@@ -1,0 +1,19 @@
+{% extends 'interno/base.html' %}
+
+{% block contenido %}
+
+<div class="container">
+    <h2>Información del Producto</h2>
+    <p><strong>Nombre:</strong> {{ producto.nombre }}</p>
+    <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+    <p><strong>Precio:</strong> {{ producto.precio }}</p>
+    <p><strong>Stock:</strong> {{ producto.stock }}</p>
+    <h3>Proveedores:</h3>
+    <ul>
+        {% for proveedor in producto.proveedores.all %}
+            <li>{{ proveedor.nombre }} - {{ proveedor.contacto }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

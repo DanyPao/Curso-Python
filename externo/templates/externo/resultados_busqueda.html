@@ -1,0 +1,55 @@
+{% extends 'externo/base.html' %}
+
+{% block contenido %}
+
+<div class="container">
+    <h2>Resultados de la búsqueda</h2>
+
+    {% if query %}
+        <p>Resultados para: <strong>{{ query }}</strong></p>
+    {% endif %}
+
+    {% if resultados %}
+        <ul>
+            {% for resultado in resultados %}
+                <li>{{ resultado.nombre }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No se encontraron resultados para tu búsqueda.</p>
+    {% endif %}
+</div>
+
+<style>
+/* Estilo para los resultados de búsqueda */
+.container {
+    margin-top: 20px;
+}
+
+h2 {
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+p {
+    font-size: 1rem;
+    color: #555;
+}
+</style>
+
+{% endblock %}
