@@ -1,0 +1,62 @@
+{% extends 'externo/base.html' %}
+
+{% block contenido %}
+
+<h3 style="color: seagreen; text-align: center;">Lista de Clientes</h3>
+
+<table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th style="padding: 10px; text-align: left;">ID</th>
+            <th style="padding: 10px; text-align: left;">Nombre</th>
+            <th style="padding: 10px; text-align: left;">Email</th>
+            <th style="padding: 10px; text-align: left;">Teléfono</th>
+            <th style="padding: 10px; text-align: left;">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cliente in cliente %}
+        <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 10px;">{{ cliente.id }}</td>
+            <td style="padding: 10px;">{{ cliente.nombre }}</td>
+            <td style="padding: 10px;">{{ cliente.email }}</td>
+            <td style="padding: 10px;">{{ cliente.telefono }}</td>
+            <td style="padding: 10px;">
+                <a href="{% url 'cbv_detalle_cliente' cliente.pk %}">Ver</a> |
+                <a href="{% url 'cbv_actualizar_cliente' cliente.pk %}">Editar</a> |
+                <a href="{% url 'cbv_eliminar_cliente' cliente.pk %}">Eliminar</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" style="text-align: center; padding: 20px;">No hay clientes registrados.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% comment %} Removed pagination controls {% endcomment %}
+
+<style>
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination a {
+    color: #007bff;
+    text-decoration: none;
+    margin: 0 5px;
+    font-weight: bold;
+}
+
+.pagination a:hover {
+    text-decoration: underline;
+}
+
+.pagination .current {
+    font-weight: bold;
+    color: #333;
+    margin: 0 5px;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'externo/base.html' %}
+
+{% block contenido %}
+
+<h3 style="color: seagreen; text-align: center;">Alta Cliente</h3>
+
+<form method="POST" style="max-width: 600px; margin: auto;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div style="text-align: center;">
+        <button type="submit" class="padding: 0.6rem 1rem,">Crear Cliente</button>
+    </div>
+</form>
+
+{% endblock %}

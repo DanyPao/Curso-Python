@@ -1,0 +1,64 @@
+{% extends 'externo/base.html' %}
+
+{% block contenido %}
+
+<div class="container">
+    <h2>Detalle del Cliente</h2>
+    <p><strong>Nombre:</strong> {{ cliente.nombre }}</p>
+    <p><strong>Apellido:</strong> {{ cliente.apellido }}</p>
+    <p><strong>Correo Electrónico:</strong> {{ cliente.email }}</p>
+    <p><strong>Teléfono:</strong> {{ cliente.telefono }}</p>
+
+    <div class="acciones">
+        <a href="{% url 'cbv_lista_clientes' %}" class="btn">Volver a la Lista</a>
+        <a href="{% url 'cbv_actualizar_cliente' cliente.pk %}" class="btn">Editar Cliente</a>
+        <a href="{% url 'cbv_eliminar_cliente' cliente.pk %}" class="btn btn-danger">Eliminar Cliente</a>
+    </div>
+</div>
+
+<style>
+    .container {
+        margin-top: 20px;
+    }
+
+    h2 {
+        color: #333;
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+    p {
+        font-size: 1.2rem;
+        color: #555;
+        margin: 5px 0;
+    }
+
+    .acciones {
+        margin-top: 20px;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 10px 15px;
+        margin-right: 10px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+    }
+
+    .btn-danger:hover {
+        background-color: #a71d2a;
+    }
+</style>
+
+{% endblock %}

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Cliente(models.Model):
@@ -10,6 +11,8 @@ class Cliente(models.Model):
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
 
+    def get_absolute_url(self):
+        return reverse("cbv_detalle_cliente", kwargs={"pk": self.pk})        
 
 class Pedido(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)

@@ -121,12 +121,20 @@
     <nav>
         <a href="{% url 'index' %}">Inicio</a>
         <a href="{% url 'productos' %}">Productos</a>
-        <a href="{% url 'clientes' %}">Clientes</a>
         <a href="{% url 'pedidos' %}">Pedidos</a>
         <a href="{% url 'proveedores' %}">Proveedores</a>
         <a href="{% url 'compras' %}">Compras</a>
         <a href="{% url 'vendedores' %}">Vendedores</a>
     </nav>
+
+    <div class="nav-section">
+        <div class="links">
+            <h3> Funciones con CBV en Clientes</h3>
+        <nav>
+            <a href="{% url 'cbv_alta_cliente' %}">Crear Cliente</a>
+            <a href="{% url 'cbv_lista_clientes' %}">Lista de Clientes</a>
+        </nav>
+    </div>            
 
     {% block contenido %}
 
