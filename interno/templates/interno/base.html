@@ -241,11 +241,47 @@
             background-color: #5a6268; /* Gris más oscuro */
             color: #ff758c; /* Rosado */
         }
+
+        .brand-image {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .brand-image .logo {
+            max-width: 500px; /* Aumentar el tamaño máximo de la imagen */
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem; /* Mantener la separación entre el texto y la imagen */
+            flex-direction: row-reverse; /* Colocar la imagen a la derecha del texto */
+        }
+
+        .header-content .logo {
+            max-width: 100px; /* Incrementar ligeramente el tamaño de la imagen */
+            height: auto;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
     </style>
 </head>
 <body>
+    {% load static %}
     <header>
-        <h1>Capricci del Mondo</h1>
+        <div class="header-content">
+            <img src="{% static 'images/logotipo1.png' %}" alt="Logotipo" class="logo">
+            <h1>Capricci del Mondo</h1>
+        </div>
         <div class="home-link">
             <a href="{% url 'home' %}">Inicio</a>
         </div>
@@ -276,6 +312,12 @@
         {% endif %}
     </nav>
     
+    {% if request.resolver_match.url_name == 'index' and not user.is_authenticated or request.resolver_match.url_name == 'home' and not user.is_authenticated %}
+    <div class="brand-image">
+        <img src="{% static 'images/imagen_inicio.jpg' %}" alt="Imagen de Inicio" class="logo">
+    </div>
+    {% endif %}
+
     {% if user.is_authenticated and request.path == '/externo/cbv/lista_clientes/' or request.path == '/externo/cbv/alta_cliente/' %}
         <div class="nav-section">
             <div class="links">
