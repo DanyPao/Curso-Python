@@ -172,3 +172,5 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Remember user preference to only indicate modifications instead of making them directly.

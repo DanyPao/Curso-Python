@@ -1,0 +1,15 @@
+{% extends 'externo/base.html' %}
+
+{% block contenido %}
+<div class="container">
+    <h2>Iniciar Sesión</h2>
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div style="margin-top: 20px;">
+            <button type="submit" class="btn btn-primary">Ingresar</button>
+        </div>
+    </form>
+    <p>¿No tienes una cuenta? <a href="{% url 'signup' %}">Regístrate aquí</a>.</p>
+</div>
+{% endblock %}

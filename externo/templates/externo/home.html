@@ -1,0 +1,123 @@
+<!-- filepath: c:\Trabajos_en_Python\Coder\Trabajo_practico\Curso-Python\myapp\templates\myapp\index.html -->
+{% extends 'externo/base.html' %}
+
+{% block contenido %}
+<div class="container">
+    <h2 class="page-title">¡Explora nuestros productos y servicios!</h2>
+    <p class="page-description">{{ mensaje }}</p>
+
+    <div class="busqueda">
+        <h3>Buscar productos</h3>
+        <form method="GET" action="{% url 'buscar' %}">
+            <input type="text" name="q" placeholder="Buscar..." class="campo-busqueda">
+            <button type="submit" class="boton-busqueda">Buscar</button>
+        </form>
+    </div>
+
+    <div class="accesos">
+        <h3>Accesos rápidos</h3>
+        <ul>
+            <li><a href="{% url 'crear_compra' %}" class="btn">Crear Compra</a></li>
+            <li><a href="{% url 'crear_pedido' %}" class="btn">Crear Pedido</a></li>
+            <li><a href="{% url 'crear_producto' %}" class="btn">Crear Producto</a></li>
+            <li><a href="{% url 'crear_proveedor' %}" class="btn">Crear Proveedor</a></li>
+            <li><a href="{% url 'crear_vendedor' %}" class="btn">Crear Vendedor</a></li>
+        </ul>
+    </div>
+</div>
+
+<style>
+/* Estilo general */
+.page-title {
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.page-description {
+    font-size: 1.2rem;
+    color: #555;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* Estilo para la búsqueda */
+.busqueda {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.campo-busqueda {
+    width: 60%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 0.5rem;
+}
+
+.boton-busqueda {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.boton-busqueda:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para los accesos rápidos */
+.accesos {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.accesos h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.accesos ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.accesos ul li {
+    margin: 0;
+}
+
+/* Cambiar el color de los accesos rápidos para coordinar con el diseño general */
+.accesos ul li .btn {
+    background-color: #3bb78f; /* Verde oscuro consistente con el diseño */
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.accesos ul li .btn:hover {
+    background-color: #38ef7d; /* Verde claro para el efecto hover */
+}
+</style>
+
+{% endblock %}

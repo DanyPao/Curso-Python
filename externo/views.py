@@ -4,12 +4,21 @@ from interno.models import Producto
 from .forms import FormCliente, FormPedido, FormPedidoProducto
 from django.forms import inlineformset_factory
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.models import User 
+from django.views.generic.edit import CreateView
+from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
+from django.contrib.auth import logout
 
 
-def index(request):
+def home(request):
     context = {"mensaje": "Las mejores marcas traídas de todo el mundo"}
-    return render(request, "externo/index.html", context)
+    return render(request, "externo/home.html", context)
+
+def about(request):
+    context = {"mensaje": "Sobre nosotros"}
+    return render(request, "externo/about.html", context)
 
 #def clientes(request):
 #    clientes = Cliente.objects.all()
@@ -82,7 +91,7 @@ def buscar(request):
 class ClienteListView(ListView):
     model = Cliente
     template_name = "externo/cbv/cliente-list.html"
-    context_object_name="cliente"
+    context_object_name="clientes"
 
 
 class ClienteCreateView(CreateView):
@@ -106,6 +115,17 @@ class ClienteDeleteView(DeleteView):
     model = Cliente
     template_name = "externo/cbv/cliente-delete.html"
     success_url = reverse_lazy("cbv_lista_clientes")
-    
 
+class UserRegisterView(CreateView):
+    template_name = "externo/registration/signup.html"
+    form_class = UserCreationForm
+    success_url = reverse_lazy("login")
 
+class UserLoginView(LoginView):
+    template_name = "externo/registration/login.html"
+    redirect_authenticated_user = True  
+    next_page = reverse_lazy("home")  
+
+def logout_view(request):
+    logout(request)
+    return redirect("index")

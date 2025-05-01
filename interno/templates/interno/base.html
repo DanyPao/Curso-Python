@@ -22,6 +22,7 @@
             padding: 1.5rem 0;
             text-align: center;
             border-bottom: 4px solid #3bb78f; /* Detalle más oscuro */
+            position: relative;
         }
 
         header h1 {
@@ -33,6 +34,30 @@
         header p {
             font-size: 1rem;
             margin: 0.5rem 0 0;
+        }
+
+        .auth-links {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .auth-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            background-color: #3bb78f; /* Verde oscuro */
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .auth-link:hover {
+            background-color: #38ef7d; /* Verde claro */
+            text-decoration: underline;
         }
 
         /* Navegación */
@@ -54,6 +79,38 @@
             text-decoration: underline;
         }
 
+        /* Sección de autenticación */
+
+        .auth-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
+            z-index: 1000; /* Asegura que esté por encima de otros elementos */
+        }
+        
+        .auth-button {
+            color: #007bff; /* Azul para destacar */
+            text-decoration: none;
+            margin-left: 10px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            padding: 5px 10px;
+            border: 1px solid #007bff;
+            border-radius: 4px;
+            background-color: #fff; /* Fondo blanco */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .auth-button:hover {
+            background-color: #007bff; /* Azul sólido al pasar el mouse */
+            color: #fff; /* Texto blanco */
+        }
+
+        
         /* Contenedor principal */
         .container {
             max-width: 1100px;
@@ -111,27 +168,79 @@
             margin: 0;
             font-size: 0.9rem;
         }
+
+        .home-link {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .home-link a {
+            color: #fff;
+            text-decoration: none;
+            background-color: #3bb78f;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .home-link a:hover {
+            background-color: #38ef7d;
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>Capricci del Mondo</h1>
+        <div class="home-link">
+            <a href="{% url 'home' %}">Inicio</a>
+        </div>
+        <div class="auth-links">
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}" class="auth-link">Cerrar Sesión</a>   
+            {% else %}
+                <a href="{% url 'login' %}" class="auth-link">Iniciar Sesión</a>
+                <a href="{% url 'signup' %}" class="auth-link">Registrarse</a>
+            {% endif %}
+        </div>
     </header>
 
     <nav>
-        <a href="{% url 'index' %}">Inicio</a>
-        <a href="{% url 'productos' %}">Productos</a>
-        <a href="{% url 'clientes' %}">Clientes</a>
-        <a href="{% url 'pedidos' %}">Pedidos</a>
-        <a href="{% url 'proveedores' %}">Proveedores</a>
-        <a href="{% url 'compras' %}">Compras</a>
-        <a href="{% url 'vendedores' %}">Vendedores</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'about' %}">Sobre Nosotros</a>
+            <a href="{% url 'productos' %}">Productos</a>
+            <a href="{% url 'pedidos' %}">Pedidos</a>
+            <a href="{% url 'proveedores' %}">Proveedores</a>
+            <a href="{% url 'compras' %}">Compras</a>
+            <a href="{% url 'vendedores' %}">Vendedores</a>
+        {% else %}
+            <!-- Cambiar la frase para que sea más visible pero sin quitar protagonismo al título -->
+            <p style="font-size: 1rem; color: #f8f9fa; background-color: #3bb78f; padding: 0.5rem; border-radius: 5px; text-align: center; margin-top: 0.5rem;">
+                Inicie sesión para ingresar o regístrese
+            </p>
+        {% endif %}
     </nav>
+    
+    {% if user.is_authenticated %}    
+        <div class="nav-section">
+            <div class="links">
+                <h3> Funciones con CBV en Clientes: </h3>
+            <nav>
+                <a href="{% url 'cbv_alta_cliente' %}">Crear Cliente</a>
+                <a href="{% url 'cbv_lista_clientes' %}">Lista de Clientes</a>
+            </nav>
+        </div>            
+    {% endif %}
 
-    {% block contenido %}
-
-    {% endblock %}
-
+    {% if user.is_authenticated or request.resolver_match.url_name == 'login' or request.resolver_match.url_name == 'signup' %}
+       
+        {% block contenido %}
+        {% endblock %}
+    
+    {% endif %}
+    
     <footer>
         <p>&copy; 2025 Capricci del Mondo. Todos los derechos reservados.</p>
     </footer>
