@@ -5,35 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Capricci del Mondo</title>
     <style>
-        /* Estilo general */
+        /* Tipografía general */
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5; /* Fondo claro */
+            color: #333; /* Texto gris oscuro */
             margin: 0;
             padding: 0;
-            background-color: #f4e3d7; /* Fondo camel pastel */
-            color: #333; /* Texto gris oscuro */
-            line-height: 1.6;
         }
 
         /* Encabezado */
         header {
-            background: linear-gradient(135deg, #4facfe, #38ef7d); /* Degradado azul y verde */
+            background: linear-gradient(135deg, #ff7eb3, #ff758c); /* Degradado rosa */
             color: #fff;
-            padding: 1.5rem 0;
+            padding: 2rem 0;
             text-align: center;
-            border-bottom: 4px solid #3bb78f; /* Detalle más oscuro */
-            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         header h1 {
-            font-size: 2rem;
+            font-size: 3rem;
+            font-weight: bold;
             margin: 0;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3); /* Sombra para destacar el texto */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra para destacar el texto */
         }
 
         header p {
-            font-size: 1rem;
-            margin: 0.5rem 0 0;
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            font-style: italic;
         }
 
         .auth-links {
@@ -45,38 +45,49 @@
         }
 
         .auth-link {
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: bold;
             padding: 0.5rem 1rem;
-            background-color: #3bb78f; /* Verde oscuro */
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
+            background-color: #b56576; /* Rosa viejo */
+            color: #d6d8db; /* Gris claro */
+            border: 2px solid #8e4a5a; /* Borde más oscuro para destacar */
+            border-radius: 8px; /* Bordes más redondeados */
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para resaltar */
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .auth-link:hover {
-            background-color: #38ef7d; /* Verde claro */
-            text-decoration: underline;
+            background-color: #8e4a5a; /* Rosa viejo más oscuro */
+            color: #f8f9fa; /* Blanco */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Sombra más intensa al pasar el mouse */
         }
 
         /* Navegación */
         nav {
-            background-color: #3bb78f; /* Verde oscuro */
-            padding: 0.5rem 0;
+            background-color: #6c757d; /* Gris oscuro */
+            padding: 1rem 0;
             text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         nav a {
-            color: #fff;
+            color: #f8f9fa; /* Gris claro */
             text-decoration: none;
-            margin: 0 1rem;
-            font-size: 1rem;
+            margin: 0 1rem; /* Mantener la distancia entre los botones */
+            padding: 0.5rem 1rem; /* Agregar padding fijo para evitar movimiento */
+            display: inline-block; /* Asegurar que el tamaño del botón sea consistente */
+            font-size: 1.1rem;
             font-weight: bold;
+            transition: color 0.3s ease, background-color 0.3s ease;
         }
 
         nav a:hover {
-            text-decoration: underline;
+            color: #ff758c; /* Rosado que combina con el diseño */
+            background-color: #5a6268; /* Gris más oscuro */
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra al pasar el mouse */
         }
 
         /* Sección de autenticación */
@@ -113,18 +124,19 @@
         
         /* Contenedor principal */
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 2rem auto;
-            padding: 1.5rem;
-            background-color: #fff; /* Fondo blanco */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            background-color: #fff;
             border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .container h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #495057; /* Gris intermedio */
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #495057;
+            text-align: center;
         }
 
         /* Tabla */
@@ -156,17 +168,28 @@
 
         /* Pie de página */
         footer {
+            background-color: #f8f9fa; /* Gris claro */
+            color: #212529; /* Letras negras */
             text-align: center;
-            margin-top: 2rem;
             padding: 1rem 0;
-            background-color: #6c757d; /* Gris oscuro */
-            color: #fff;
-            border-top: 4px solid #5a6268; /* Detalle más oscuro */
+            margin-top: 2rem;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
         }
 
         footer p {
             margin: 0;
             font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #212529; /* Letras negras */
+            text-decoration: none;
+            margin: 0 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
 
         .home-link {
@@ -178,16 +201,45 @@
         }
 
         .home-link a {
-            color: #fff;
-            text-decoration: none;
-            background-color: #3bb78f;
+            font-size: 1rem;
+            font-weight: bold;
             padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
+            background-color: #b56576; /* Rosa viejo */
+            color: #d6d8db; /* Gris claro */
+            border: 2px solid #8e4a5a; /* Borde más oscuro para destacar */
+            border-radius: 8px; /* Bordes más redondeados */
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para resaltar */
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .home-link a:hover {
-            background-color: #38ef7d;
+            background-color: #8e4a5a; /* Rosa viejo más oscuro */
+            color: #f8f9fa; /* Blanco */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Sombra más intensa al pasar el mouse */
+        }
+
+        .nav-section .links nav a {
+            font-size: 1.2rem; /* Aumentar el tamaño de la fuente */
+            font-weight: bold;
+        }
+
+        .nav-section nav a {
+            color: #f8f9fa; /* Gris claro */
+            text-decoration: none;
+            margin: 0 1rem; /* Espaciado entre botones */
+            padding: 0.5rem 1rem; /* Tamaño consistente */
+            display: inline-block;
+            font-size: 1.1rem;
+            font-weight: bold;
+            background-color: #6c757d; /* Gris oscuro */
+            border: none;
+            box-shadow: none
+        }
+
+        .nav-section nav a:hover {
+            background-color: #5a6268; /* Gris más oscuro */
+            color: #ff758c; /* Rosado */
         }
     </style>
 </head>
@@ -210,6 +262,7 @@
     <nav>
         {% if user.is_authenticated %}
             <a href="{% url 'about' %}">Sobre Nosotros</a>
+            <a href="{% url 'cbv_lista_clientes' %}">Clientes</a>
             <a href="{% url 'productos' %}">Productos</a>
             <a href="{% url 'pedidos' %}">Pedidos</a>
             <a href="{% url 'proveedores' %}">Proveedores</a>
@@ -217,22 +270,73 @@
             <a href="{% url 'vendedores' %}">Vendedores</a>
         {% else %}
             <!-- Cambiar la frase para que sea más visible pero sin quitar protagonismo al título -->
-            <p style="font-size: 1rem; color: #f8f9fa; background-color: #3bb78f; padding: 0.5rem; border-radius: 5px; text-align: center; margin-top: 0.5rem;">
+            <p style="font-size: 1.2rem; color: #212529; background-color: #e9ecef; padding: 0.8rem; border-radius: 5px; text-align: center; margin-top: 0.5rem; font-weight: bold;">
                 Inicie sesión para ingresar o regístrese
             </p>
         {% endif %}
     </nav>
     
-    {% if user.is_authenticated %}    
+    {% if user.is_authenticated and request.path == '/externo/cbv/lista_clientes/' or request.path == '/externo/cbv/alta_cliente/' %}
         <div class="nav-section">
             <div class="links">
-                <h3> Funciones con CBV en Clientes: </h3>
-            <nav>
-                <a href="{% url 'cbv_alta_cliente' %}">Crear Cliente</a>
-                <a href="{% url 'cbv_lista_clientes' %}">Lista de Clientes</a>
-            </nav>
-        </div>            
-    {% endif %}
+                <h3>Funciones con CBV en Clientes:</h3>
+                <nav>
+                    <a href="{% url 'cbv_alta_cliente' %}" class="auth-link">Crear Cliente</a>
+                    <a href="{% url 'cbv_lista_clientes' %}" class="auth-link">Lista de Clientes</a>
+                </nav>
+            </div>
+        </div>
+        {% elif user.is_authenticated and request.path == '/interno/productos/' or request.path == '/interno/crear_producto/' %}
+        <div class="nav-section">
+            <div class="links">
+                <h3>&nbsp;</h3> <!-- Espacio reservado, sin texto -->
+                <nav>
+                    <a href="{% url 'crear_producto' %}" class="auth-link">Crear Producto</a>
+                    <a href="{% url 'productos' %}" class="auth-link">Lista de Productos</a>
+                </nav>
+            </div>
+        </div>
+        {% elif user.is_authenticated and request.path == '/pedidos/' or request.path == '/crear_pedido/' %}
+        <div class="nav-section">
+            <div class="links">
+                <h3>&nbsp;</h3> <!-- Espacio reservado, sin texto -->
+                <nav>
+                    <a href="{% url 'crear_pedido' %}" class="auth-link">Crear Pedido</a>
+                    <a href="{% url 'pedidos' %}" class="auth-link">Lista de Pedidos</a>
+                </nav>
+            </div>
+        </div>
+        {% elif user.is_authenticated and request.path == '/interno/proveedores/' or request.path == '/interno/crear_proveedor/' %}
+        <div class="nav-section">
+            <div class="links">
+                <h3>&nbsp;</h3> <!-- Espacio reservado, sin texto -->
+                <nav>
+                    <a href="{% url 'crear_proveedor' %}" class="auth-link">Crear Proveedor</a>
+                    <a href="{% url 'proveedores' %}" class="auth-link">Lista de Proveedores</a>
+                </nav>
+            </div>
+        </div>
+        {% elif user.is_authenticated and request.path == '/interno/compras/' or request.path == '/interno/crear_compra/' %}
+        <div class="nav-section">
+            <div class="links">
+                <h3>&nbsp;</h3> <!-- Espacio reservado, sin texto -->
+                <nav>
+                    <a href="{% url 'crear_compra' %}" class="auth-link">Crear Compra</a>
+                    <a href="{% url 'compras' %}" class="auth-link">Lista de Compras</a>
+                </nav>
+            </div>
+        </div>
+        {% elif user.is_authenticated and request.path == '/interno/vendedores/' or request.path == '/interno/crear_vendedor/' %}
+        <div class="nav-section">
+            <div class="links">
+                <h3>&nbsp;</h3> <!-- Espacio reservado, sin texto -->
+                <nav>
+                    <a href="{% url 'crear_vendedor' %}" class="auth-link">Crear Vendedor</a>
+                    <a href="{% url 'vendedores' %}" class="auth-link">Lista de Vendedores</a>
+                </nav>
+            </div>
+        </div>
+        {% endif %}
 
     {% if user.is_authenticated or request.resolver_match.url_name == 'login' or request.resolver_match.url_name == 'signup' %}
        

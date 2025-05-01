@@ -1,12 +1,20 @@
 from django.db import models
 from django.urls import reverse
+import uuid
 
+def generate_code():
+    for i in range(32):
+        code = uuid.uuid4().hex
+        if not Cliente.objects.filter(code=code).exists():
+            return code
+    raise Exception("No se pudo generar un código único después de 32 intentos.")
 # Create your models here.
 class Cliente(models.Model):
     nombre = models.CharField(max_length=100)
     apellido = models.CharField(max_length=100)
     email = models.EmailField()
     telefono = models.CharField(max_length=15)
+    code = models.CharField(max_length=32, default=generate_code, editable=False, unique=True, db_index=True)
 
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
