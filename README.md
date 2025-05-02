@@ -29,6 +29,5 @@ python manage.py migrate
 6) Ahora puedes disfrutar de navegar por la página web.
 
 ---
-Nota 1: Cuando creas un pedido, aún me da error. Voy a buscar solucionarlo antes de la hora de entrega, pero no sé si llego (por el trabajo). El resto está todo funcional.
 
-Nota 2: Hay mas models que formularios, es porque quise adelantar para la entrega final, como el caso del model Inventario o Devolucion o Factura. Pido que no tomen en cuenta esos models, ya que realicé mucho mas que 3.
+Dirección del video: https://drive.google.com/drive/folders/1LbvfCkCSRgK9HIjE-nL5FSNxsNmlNqxP?usp=sharing
