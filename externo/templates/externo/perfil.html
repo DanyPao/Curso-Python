@@ -1,0 +1,92 @@
+{% extends "externo/base.html" %}
+
+{% block contenido %}
+<div class="container">
+    <h2 class="page-title">Perfil de Usuario</h2>
+
+    <div class="profile-section">
+        <p><strong>Nombre de usuario:</strong> {{ user.username }}</p>
+        <p><strong>Correo electrónico:</strong> {{ user.email }}</p>
+        {% if user.avatar and user.avatar.imagen %}
+        <div class="avatar-section">
+            <p><strong>Avatar actual:</strong></p>
+            <img src="{{ user.avatar.imagen.url }}" alt="Avatar" class="avatar-image">
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="actions">
+        <a href="{% url 'change_user' %}" class="btn btn-primary">Editar Perfil</a>
+        <a href="{% url 'logout' %}" class="btn btn-secondary">Cerrar Sesión</a>
+    </div>
+</div>
+
+<style>
+    .container {
+        margin-top: 20px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .page-title {
+        text-align: center;
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .profile-section {
+        margin-top: 20px;
+    }
+
+    .avatar-section {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .avatar-image {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .actions {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .btn {
+        display: inline-block;
+        margin: 10px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary {
+        background-color: #6c757d;
+        color: #fff;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #5a6268;
+    }
+
+    .btn-secondary {
+        background-color: #d9534f;
+        color: #fff;
+        border: none;
+    }
+
+    .btn-secondary:hover {
+        background-color: #c9302c;
+    }
+</style>
+{% endblock %}

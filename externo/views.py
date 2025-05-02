@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Cliente, Pedido, PedidoProducto
+from .models import Cliente, Pedido, PedidoProducto, Avatar
 from interno.models import Producto
-from .forms import FormCliente, FormPedido, FormPedidoProducto
+from .forms import FormCliente, FormPedido, FormPedidoProducto, CustomUserForm, AvatarForm
 from django.forms import inlineformset_factory
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView, LogoutView
@@ -10,6 +10,9 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.contrib.auth import logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import View
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
@@ -88,30 +91,29 @@ def buscar(request):
     resultados = Producto.objects.filter(nombre__icontains=query) 
     return render(request, 'externo/resultados_busqueda.html', {'resultados': resultados, 'query': query})
 
-class ClienteListView(ListView):
+class ClienteListView(LoginRequiredMixin,ListView):
     model = Cliente
     template_name = "externo/cbv/cliente-list.html"
     context_object_name="clientes"
 
-
-class ClienteCreateView(CreateView):
+class ClienteCreateView(LoginRequiredMixin,CreateView):
     model = Cliente
     fields = ["nombre", "apellido", "email", "telefono"]
     template_name = "externo/cbv/cliente-create.html"
     succes_url = reverse_lazy("cbv_lista_clientes")
 
-class ClienteDetailView(DetailView):
+class ClienteDetailView(LoginRequiredMixin,DetailView):
     model = Cliente
     fields = ["nombre", "apellido", "email", "telefono"]
     template_name = "externo/cbv/cliente-detail.html"
     
-class ClienteUpdateView(UpdateView):
+class ClienteUpdateView(LoginRequiredMixin,UpdateView):
     model = Cliente
     fields = ["nombre", "apellido", "email", "telefono"]
     template_name = "externo/cbv/cliente-update.html"
     success_url = "/externo/cbv/lista_clientes"
 
-class ClienteDeleteView(DeleteView):
+class ClienteDeleteView(LoginRequiredMixin,DeleteView):
     model = Cliente
     template_name = "externo/cbv/cliente-delete.html"
     success_url = reverse_lazy("cbv_lista_clientes")
@@ -126,6 +128,38 @@ class UserLoginView(LoginView):
     redirect_authenticated_user = True  
     next_page = reverse_lazy("home")  
 
+@login_required
 def logout_view(request):
     logout(request)
     return redirect("index")
+
+class UserChangeView(LoginRequiredMixin, View):
+    def get(self, request):
+        avatar, _ = Avatar.objects.get_or_create(user=request.user)
+        user_form =CustomUserForm(instance=request.user)
+        avatar_form = AvatarForm(instance=avatar)
+        return render(request, "externo/registration/change_user.html", {"user_form": user_form, "avatar_form": avatar_form})
+    
+    def post(self, request):
+        avatar, _ = Avatar.objects.get_or_create(user=request.user)
+        user_form = CustomUserForm(request.POST, instance=request.user)
+        avatar_form = AvatarForm(request.POST, request.FILES, instance=avatar)
+
+        if user_form.is_valid() and avatar_form.is_valid():
+            user_form.save()
+            avatar_form.save()
+            return redirect("perfil")
+        return render(request, "externo/registration/change_user.html", {"user_form": user_form, "avatar_form": avatar_form})
+    
+class AvatarUpdateView(LoginRequiredMixin, UpdateView):
+    model = Avatar
+    form_class = AvatarForm
+    template_name = "externo/registration/upload_avatar.html"
+    success_url = reverse_lazy("externo/registration/upload_avatar.html")
+    
+    def get_object(self, queryset=None):
+        avatar, _ = Avatar.objects.get_or_create(user=self.request.user)
+        return avatar
+
+def perfil(request):
+    return render(request, "externo/perfil.html")

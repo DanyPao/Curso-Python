@@ -2,6 +2,8 @@ from django.urls import path
 from .views import home,  pedidos,  detalle_pedido,  crear_pedido, buscar, about, logout_view#, clientes
 from .views import ClienteCreateView, ClienteListView, ClienteDetailView, ClienteUpdateView, ClienteDeleteView
 from .views import UserRegisterView, UserLoginView
+from .views import UserChangeView, AvatarUpdateView
+from .views import perfil
 
 urlpatterns = [
     path("home/", home, name="home"),
@@ -21,9 +23,12 @@ urlpatterns = [
     path("externo/cbv/cliente/<int:pk>/eliminar/", ClienteDeleteView.as_view(), name="cbv_eliminar_cliente"),
 
     path("", UserLoginView.as_view(), name="index"),
-    path("signup/", UserRegisterView.as_view(), name="signup"),
-    path("login/", UserLoginView.as_view(), name="login"),
-    path("logout/", logout_view, name="logout"),
+    path("externo/registration/signup/", UserRegisterView.as_view(), name="signup"),
+    path("externo/registration/login/", UserLoginView.as_view(), name="login"),
+    path("externo/registration/logout/", logout_view, name="logout"),
 
+    path("externo/registration/change_user/", UserChangeView.as_view(), name="change_user"),
+    path("externo/registration/upload_avatar/", AvatarUpdateView.as_view(), name="upload_avatar"),
+    path("perfil/", perfil, name="perfil"),
 ]
 

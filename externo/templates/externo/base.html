@@ -42,6 +42,7 @@
             right: 1rem;
             display: flex;
             gap: 1rem;
+            align-items: center;
         }
 
         .auth-link {
@@ -55,6 +56,14 @@
             text-decoration: none;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para resaltar */
             transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+            padding: 0.5rem 1rem;
+            display: inline-block;
+            text-align: center;
+            line-height: 1;
+            height: auto;
+            vertical-align: middle;
+            font-size: 1rem;
+            white-space: nowrap;
         }
 
         .auth-link:hover {
@@ -259,7 +268,7 @@
             align-items: center;
             justify-content: center;
             gap: 2.5rem; /* Mantener la separación entre el texto y la imagen */
-            flex-direction: row-reverse; /* Colocar la imagen a la derecha del texto */
+            flex-direction: row; /* Ensure the image is on the left */
         }
 
         .header-content .logo {
@@ -272,6 +281,25 @@
             font-size: 3rem;
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
     </style>
 </head>
@@ -287,7 +315,13 @@
         </div>
         <div class="auth-links">
             {% if user.is_authenticated %}
-                <a href="{% url 'logout' %}" class="auth-link">Cerrar Sesión</a>   
+                <a href="{% url 'perfil' %}" class="auth-link">{{ user.username }}</a>
+                <a href="{% url 'logout' %}" class="auth-link">Cerrar Sesión</a>
+                <div class="user-info">
+                    {% if user.avatar and user.avatar.imagen %}
+                        <img src="{{ user.avatar.imagen.url }}" alt="Avatar" class="avatar">
+                    {% endif %}
+                </div>
             {% else %}
                 <a href="{% url 'login' %}" class="auth-link">Iniciar Sesión</a>
                 <a href="{% url 'signup' %}" class="auth-link">Registrarse</a>

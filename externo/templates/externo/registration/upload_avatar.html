@@ -1,0 +1,71 @@
+{% extends "externo/base.html" %}
+
+{% block contenido %}
+<div class="container">
+    <h2 class="page-title">Subir Avatar</h2>
+
+    <form method="POST" enctype="multipart/form-data" class="form-container">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Subir Avatar</button>
+    </form>
+
+    {% if user.avatar.imagen %}
+    <div class="avatar-section">
+        <p>Avatar actual:</p>
+        <img src="{{ user.avatar.imagen.url }}" alt="Avatar actual" class="avatar-image">
+    </div>
+    {% endif %}
+</div>
+
+<style>
+    .container {
+        margin-top: 20px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .page-title {
+        text-align: center;
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .form-container {
+        margin-top: 20px;
+    }
+
+    .btn-primary {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background-color: #6c757d; /* Gris oscuro */
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #5a6268; /* Gris más oscuro */
+    }
+
+    .avatar-section {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .avatar-image {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        object-fit: cover;
+    }
+</style>
+{% endblock %}
